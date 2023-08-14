@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres:10.5
+    container_name: postgres-camel
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5440:5432"
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
+      
+  jtech-mongodb-server:
+    container_name: jtech-mongodb-server
+    image: mongo:4.4.6
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - $PWD/../composer/storage/mongo:/data/db
